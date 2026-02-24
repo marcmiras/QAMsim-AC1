@@ -34,6 +34,25 @@ numBits = 0; % Number of bits processed
 % --- Set up parameters. ---
 % --- INSERT YOUR CODE HERE.
 
+constel_symb = [1+1i; 1-1i; -1-1i; -1+1i];  % 4-QAM - se escoge esta forma ya que es la mas simple y geometrica 
+
+M = length(constel_symb); %numero de simbolos que hay 
+k = log2(M) %numero de bits por cada simbolo
+
+nBitsBloc = 10000; %bloque de bits por iteracion (ni muy pequeño ni muy grande) 
+nSymbolsBloc = nBitsBloc/k;
+
+totErors = 0; %acumula los errores
+nunmBits = 0; %acumula numero de bits simulados
+
+EbNo_lin = 10^(EbNo/10);  %de dB a lineal
+
+Ps = mean(abs(constel_symb).^2); %la potencia media
+
+Eb = Ps/k; %energia por bit
+
+Pn = Eb/EbNo_lin; %potencia del ruido 
+
 % Simulate until number of errors exceeds maxNumErrs
 % or number of bits processed exceeds maxNumBits.
 while((totErr < maxNumErrs) && (numBits < maxNumBits))
@@ -48,6 +67,20 @@ while((totErr < maxNumErrs) && (numBits < maxNumBits))
     % --- Proceed with simulation.
     % --- Be sure to update totErr and numBits.
     % --- INSERT YOUR CODE HERE.
+
+    RandSymb = randi([1 M], 1, nSymbolsBloc); %generamos los simbolos aleatorios ENTEROS
+    
+    mod = constel_symb(RandSymb); %modulamos -- mapeo vectorial 
+
+    % ruido = nI + nQ 
+    ruido = randn(1,nSymbolsBloc)+1i*randn(1,nSymbolsBloc); 
+
+    ruidoFinal = sqrt(Pn/2)*ruido; %si no lo hacemos estariamos duplicando potencia 
+
+    simRecivido = mod + ruidoFinal; 
+
+    [detSym_idx, nerrors] = demodqam(simRecivido,M,constel_bits,mod);
+
 
 end % End of loop
 
