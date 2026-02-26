@@ -34,7 +34,7 @@ numBits = 0; % Number of bits processed
 % --- Set up parameters. ---
 % --- INSERT YOUR CODE HERE.
 
-constel_symb = [1+1i; 1-1i; -1-1i; -1+1i];  % 4-QAM - se escoge esta forma ya que es la mas simple y geometrica 
+constel_symb = [1+1i, 1-1i, -1-1i, -1+1i];  % 4-QAM - vector fila para que el indexado devuelva vector fila
 
 M = length(constel_symb); % numero de simbolos que hay 
 k = log2(M); % numero de bits por cada simbolo

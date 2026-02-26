@@ -34,14 +34,21 @@ numBits = 0; % Number of bits processed
 % --- Set up parameters. ---
 % --- INSERT YOUR CODE HERE.
 
-constel_symb = [1+1i; 1-1i; -1-1i; -1+1i];  % 4-QAM - se escoge esta forma ya que es la mas simple y geometrica 
+constel_symb = [-3+3j, -1+3j, 1+3j, 3+3j, ...
+               -3+1j, -1+1j, 1+1j, 3+1j, ...
+               -3-1j, -1-1j, 1-1j, 3-1j, ...
+               -3-3j, -1-3j, 1-3j, 3-3j]; % 16-QAM: rejilla 4x4 (vector fila)
 
-M = length(constel_symb); % numero de simbolos que hay 
-k = log2(M); % numero de bits por cada simbolo
+M = length(constel_symb); % numero de simbolos = 16
+k = log2(M); % bits por simbolo = 4
 
-constel_bits = ['00'; '01'; '11'; '10']; % tabla de bits por simbolo (Gray code)
+% Gray code 4 bits: b1b2 codifica I (-3->00,-1->01,1->11,3->10), b3b4 codifica Q (3->00,1->01,-1->11,-3->10)
+constel_bits = ['0000'; '0100'; '1100'; '1000'; ...
+                '0001'; '0101'; '1101'; '1001'; ...
+                '0011'; '0111'; '1111'; '1011'; ...
+                '0010'; '0110'; '1110'; '1010'];
 
-nBitsBloc = 10000; % bloque de bits por iteracion (ni muy pequeño ni muy grande) 
+nBitsBloc = 10000; % multiplo de k=4
 nSymbolsBloc = nBitsBloc/k;
 
 

@@ -34,14 +34,14 @@ numBits = 0; % Number of bits processed
 % --- Set up parameters. ---
 % --- INSERT YOUR CODE HERE.
 
-constel_symb = [1+1i; 1-1i; -1-1i; -1+1i];  % 4-QAM - se escoge esta forma ya que es la mas simple y geometrica 
+constel_symb = exp(1j * 2*pi/8 * (0:7)); % 8-PSK: 8 puntos equiespaciados en circulo unidad (vector fila)
 
-M = length(constel_symb); % numero de simbolos que hay 
-k = log2(M); % numero de bits por cada simbolo
+M = length(constel_symb); % numero de simbolos = 8
+k = log2(M); % bits por simbolo = 3
 
-constel_bits = ['00'; '01'; '11'; '10']; % tabla de bits por simbolo (Gray code)
+constel_bits = ['000'; '001'; '011'; '010'; '110'; '111'; '101'; '100']; % Gray code 3 bits
 
-nBitsBloc = 10000; % bloque de bits por iteracion (ni muy pequeño ni muy grande) 
+nBitsBloc = 9000; % multiplo de k=3 para que nSymbolsBloc sea entero
 nSymbolsBloc = nBitsBloc/k;
 
 
