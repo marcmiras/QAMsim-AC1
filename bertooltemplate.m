@@ -36,14 +36,14 @@ numBits = 0; % Number of bits processed
 
 constel_symb = [1+1i; 1-1i; -1-1i; -1+1i];  % 4-QAM - se escoge esta forma ya que es la mas simple y geometrica 
 
-M = length(constel_symb); %numero de simbolos que hay 
-k = log2(M) %numero de bits por cada simbolo
+M = length(constel_symb); % numero de simbolos que hay 
+k = log2(M); % numero de bits por cada simbolo
 
-nBitsBloc = 10000; %bloque de bits por iteracion (ni muy pequeño ni muy grande) 
+constel_bits = ['00'; '01'; '11'; '10']; % tabla de bits por simbolo (Gray code)
+
+nBitsBloc = 10000; % bloque de bits por iteracion (ni muy pequeño ni muy grande) 
 nSymbolsBloc = nBitsBloc/k;
 
-totErors = 0; %acumula los errores
-nunmBits = 0; %acumula numero de bits simulados
 
 EbNo_lin = 10^(EbNo/10);  %de dB a lineal
 
@@ -79,8 +79,10 @@ while((totErr < maxNumErrs) && (numBits < maxNumBits))
 
     simRecivido = mod + ruidoFinal; 
 
-    [detSym_idx, nerrors] = demodqam(simRecivido,M,constel_bits,mod);
+    [detSym_idx, nerrors] = demodqam(simRecivido, constel_symb, constel_bits, RandSymb);
 
+    totErr = totErr + nerrors;
+    numBits = numBits + nBitsBloc;
 
 end % End of loop
 
