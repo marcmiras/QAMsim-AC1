@@ -1,4 +1,4 @@
-function [ber, numBits] = bertooltemplate(EbNo, maxNumErrs, maxNumBits)
+function [ber, numBits] = simula_qam2(EbNo, maxNumErrs, maxNumBits)
 %BERTOOLTEMPLATE Template for a BERTool simulation function.
 %   This file is a template for a BERTool-compatible simulation function.
 %   To use the template, insert your own code in the places marked "INSERT

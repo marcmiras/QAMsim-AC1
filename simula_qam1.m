@@ -1,4 +1,4 @@
-function [detSym_idx,nerrors] = demodqam(rxSig,constel_symb,constel_bits,txSymb)
+function [detSym_idx,nerrors] = simula_qam1(rxSig,constel_symb,constel_bits,txSymb)
 % [detSym_idx,nerrors] = demodqam(rxSig,constel_symb,constel_bits,txSymb)
 % 
 % Demodulació QAM del vector de mostres rebut rxSig (complex) usant la
